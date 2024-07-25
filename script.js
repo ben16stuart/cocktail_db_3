@@ -1,7 +1,7 @@
 const supabase = supabase_py.createClient(
-    'https://your-supabase-instance.supabase.co',
-    'your-supabase-key'
-  );
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
   
   const searchForm = document.getElementById('search-form');
   const searchInput = document.getElementById('search-input');
