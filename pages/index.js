@@ -16,4 +16,13 @@ function Home() {
     <div>
       <Header />
       <SearchBar />
-      {drink
+      {drink ? (
+        <DrinkCard drink={drink} />
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+}
+
+export default Home;
