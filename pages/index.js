@@ -9,7 +9,11 @@ function Home() {
   useEffect(() => {
     fetch('/api/supabase')
       .then((res) => res.json())
-      .then((data) => setDrink(data));
+      .then((data) => {
+        console.log('Data from API:', data);
+        setDrink(data);
+      })
+      .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
   return (
