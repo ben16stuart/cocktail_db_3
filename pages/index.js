@@ -1,8 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import DrinkCard from '../components/DrinkCard';
 
-export default function Home() {
+function Home() {
   const [drink, setDrink] = useState(null);
 
   useEffect(() => {
@@ -15,7 +16,4 @@ export default function Home() {
     <div>
       <Header />
       <SearchBar />
-      {drink && <DrinkCard drink={drink} />}
-    </div>
-  );
-}
+      {drink
