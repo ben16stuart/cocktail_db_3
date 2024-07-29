@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "pages/api/supabase.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/supabase",
+      "dest": "pages/api/supabase.js"
+    }
+  ],
+  "framework": {
+    "name": "nextjs",
+    "version": "12"
+  }
+}
