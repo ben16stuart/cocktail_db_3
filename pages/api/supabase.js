@@ -21,15 +21,11 @@ export default async function handler(req, res) {
 
       // Select a random drink
       const randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
-      console.log('Selected random drink:', randomDrink);
 
       // Fetch ingredients for the random drink
       const { data: ingredientAmounts, error: ingredientError } = await supabase
         .from('ingredient_amounts')
-        .select(`
-          amount,
-          ingredients(name)
-        `)
+        .select('amount, ingredient_id')
         .eq('drink_id', randomDrink.id);
 
       if (ingredientError) {
@@ -37,18 +33,50 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to fetch ingredients' });
       }
 
-      console.log('Fetched ingredient amounts:', ingredientAmounts);
+      // Fetch ingredient names
+      const ingredientIds = ingredientAmounts.map(item => item.ingredient_id);
+      const { data: ingredients, error: ingredientsError } = await supabase
+        .from('ingredients')
+        .select('id, name')
+        .in('id', ingredientIds);
 
-      // Combine drink and ingredients
-      const drinkWithIngredients = {
+      if (ingredientsError) {
+        console.error('Error fetching ingredient names:', ingredientsError);
+        return res.status(500).json({ error: 'Failed to fetch ingredient names' });
+      }
+
+      // Map ingredient IDs to names
+      const ingredientMap = ingredients.reduce((acc, item) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {});
+
+      // Prepare ingredients list with names
+      const ingredientsWithNames = ingredientAmounts.map(item => ({
+        name: ingredientMap[item.ingredient_id],
+        amount: item.amount
+      }));
+
+      // Fetch instructions for the random drink
+      const { data: instructions, error: instructionsError } = await supabase
+        .from('instructions')
+        .select('step_number, instruction')
+        .eq('drink_id', randomDrink.id)
+        .order('step_number', { ascending: true });
+
+      if (instructionsError) {
+        console.error('Error fetching instructions:', instructionsError);
+        return res.status(500).json({ error: 'Failed to fetch instructions' });
+      }
+
+      // Combine drink, ingredients, and instructions
+      const drinkWithDetails = {
         ...randomDrink,
-        ingredients: ingredientAmounts.map(({ amount, ingredients }) => ({
-          amount,
-          name: ingredients ? ingredients.name : 'Unknown' // Handle undefined ingredients
-        }))
+        ingredients: ingredientsWithNames,
+        instructions
       };
 
-      return res.status(200).json(drinkWithIngredients);
+      return res.status(200).json(drinkWithDetails);
     } catch (error) {
       console.error('Unexpected error:', error);
       return res.status(500).json({ error: 'Unexpected error' });
