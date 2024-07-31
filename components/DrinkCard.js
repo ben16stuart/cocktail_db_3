@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const DrinkRecipeCard = () => {
+const DrinkCard = () => {
   const [drink, setDrink] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +32,7 @@ const DrinkRecipeCard = () => {
   }
 
   return (
-    <div className="drink-recipe-card">
+    <div className="drink-card">
       <h1>{drink.name}</h1>
       <p>{drink.description}</p>
 
@@ -60,7 +60,7 @@ const DrinkRecipeCard = () => {
       </div>
 
       <style jsx>{`
-        .drink-recipe-card {
+        .drink-card {
           padding: 20px;
           border: 1px solid #ddd;
           border-radius: 8px;
@@ -100,4 +100,4 @@ const DrinkRecipeCard = () => {
   );
 };
 
-export default DrinkRecipeCard;
+export default DrinkCard;
