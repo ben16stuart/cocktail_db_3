@@ -1,101 +1,57 @@
 import React, { useEffect, useState } from 'react';
+import styles from './DrinkCard.module.css';
 
-const DrinkCard = () => {
-  const [drink, setDrink] = useState(null);
-  const [loading, setLoading] = useState(true);
+const DrinkCard = ({ drink }) => {
+  const [ingredients, setIngredients] = useState([]);
+  const [instructions, setInstructions] = useState([]);
 
   useEffect(() => {
-    const fetchDrink = async () => {
+    // Fetch the ingredients and instructions
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/supabase');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setDrink(data);
+        const resIngredients = await fetch(`/api/ingredients?drink_id=${drink.id}`);
+        const ingredientsData = await resIngredients.json();
+        setIngredients(ingredientsData);
+
+        const resInstructions = await fetch(`/api/instructions?drink_id=${drink.id}`);
+        const instructionsData = await resInstructions.json();
+        setInstructions(instructionsData);
       } catch (error) {
-        console.error('Error fetching drink:', error);
-      } finally {
-        setLoading(false);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchDrink();
-  }, []);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (!drink) {
-    return <p>No drink data available</p>;
-  }
+    fetchData();
+  }, [drink.id]);
 
   return (
-    <div className="drink-card">
-      <h1>{drink.name}</h1>
-      <p>{drink.description}</p>
-
-      <div className="ingredients">
-        <h2>Ingredients</h2>
-        <div className="grid">
-          {drink.ingredients.map((ingredient, index) => (
-            <div key={index} className="grid-item">
-              <span>{ingredient.name}</span>: <span>{ingredient.amount}</span>
-            </div>
-          ))}
+    <div className={styles.card}>
+      <h2 className={styles.name}>{drink.name}</h2>
+      <p className={styles.description}>{drink.description}</p>
+      <div className={styles.gridContainer}>
+        <div className={styles.gridSection}>
+          <h3 className={styles.sectionTitle}>Ingredients</h3>
+          <div className={styles.grid}>
+            {ingredients.map((ingredient) => (
+              <div key={ingredient.id} className={styles.gridItem}>
+                <span className={styles.ingredientName}>{ingredient.name}</span>
+                <span className={styles.ingredientAmount}>{ingredient.amount}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.gridSection}>
+          <h3 className={styles.sectionTitle}>Instructions</h3>
+          <div className={styles.grid}>
+            {instructions.map((instruction) => (
+              <div key={instruction.step_number} className={styles.gridItem}>
+                <span className={styles.instructionStep}>Step {instruction.step_number}:</span>
+                <span className={styles.instructionText}>{instruction.instruction}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-
-      <div className="instructions">
-        <h2>Instructions</h2>
-        <div className="grid">
-          {drink.instructions.map((instruction, index) => (
-            <div key={index} className="grid-item">
-              <span>Step {instruction.step_number}: </span>
-              <span>{instruction.instruction}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style jsx>{`
-        .drink-card {
-          padding: 20px;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          max-width: 600px;
-          margin: auto;
-        }
-
-        .ingredients,
-        .instructions {
-          margin-top: 20px;
-        }
-
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-          gap: 10px;
-        }
-
-        .grid-item {
-          background: #f9f9f9;
-          padding: 10px;
-          border-radius: 4px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-          font-size: 2em;
-          margin-bottom: 10px;
-        }
-
-        h2 {
-          font-size: 1.5em;
-          margin-bottom: 10px;
-        }
-      `}</style>
     </div>
   );
 };
