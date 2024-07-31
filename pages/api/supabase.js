@@ -34,8 +34,18 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to fetch ingredient amounts' });
       }
 
+      console.log('Fetched ingredient amounts:', ingredientAmounts);
+
       // Fetch ingredients for the ingredient IDs obtained
       const ingredientIds = ingredientAmounts.map(ia => ia.ingredient_id);
+      if (ingredientIds.length === 0) {
+        console.log('No ingredients found for the drink.');
+        return res.status(200).json({
+          ...randomDrink,
+          ingredients: []  // Return empty ingredients array if no ingredient IDs
+        });
+      }
+
       const { data: ingredients, error: ingredientError } = await supabase
         .from('ingredients')
         .select('id, name')
@@ -45,6 +55,8 @@ export default async function handler(req, res) {
         console.error('Error fetching ingredients:', ingredientError);
         return res.status(500).json({ error: 'Failed to fetch ingredients' });
       }
+
+      console.log('Fetched ingredients:', ingredients);
 
       // Map ingredient IDs to names
       const ingredientMap = ingredients.reduce((map, ingredient) => {
@@ -60,6 +72,8 @@ export default async function handler(req, res) {
           name: ingredientMap[ia.ingredient_id] || 'Unknown ingredient'
         }))
       };
+
+      console.log('Combined drink with ingredients:', drinkWithIngredients);
 
       return res.status(200).json(drinkWithIngredients);
     } catch (error) {
