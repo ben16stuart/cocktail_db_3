@@ -2,10 +2,16 @@ import React from 'react';
 
 function DrinkCard({ drink }) {
   return (
-    <div>
-      <h2>{drink.name}</h2>
-      <p>Ingredients: {drink.ingredients}</p>
-      <p>Instructions: {drink.instructions}</p>
+    <div className="drinkDetails">
+      <div className="drinkTitle">{drink.name}</div>
+      <div className="drinkIngredients">
+        <strong>Ingredients:</strong>
+        <p>{drink.ingredients}</p>
+      </div>
+      <div className="drinkDirections">
+        <strong>Directions:</strong>
+        <p>{drink.directions}</p>
+      </div>
     </div>
   );
 }
