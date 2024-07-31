@@ -1,57 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../styles/DrinkCard.module.css';
+import React from 'react';
 
 const DrinkCard = ({ drink }) => {
-  const [ingredients, setIngredients] = useState([]);
-  const [instructions, setInstructions] = useState([]);
+  if (!drink) {
+    return <p>Loading...</p>;
+  }
 
-  useEffect(() => {
-    // Fetch the ingredients and instructions
-    const fetchData = async () => {
-      try {
-        const resIngredients = await fetch(`/api/ingredients?drink_id=${drink.id}`);
-        const ingredientsData = await resIngredients.json();
-        setIngredients(ingredientsData);
-
-        const resInstructions = await fetch(`/api/instructions?drink_id=${drink.id}`);
-        const instructionsData = await resInstructions.json();
-        setInstructions(instructionsData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [drink.id]);
+  const { name, description, ingredients, instructions } = drink;
 
   return (
-    <div className={styles.card}>
-      <h2 className={styles.name}>{drink.name}</h2>
-      <p className={styles.description}>{drink.description}</p>
-      <div className={styles.gridContainer}>
-        <div className={styles.gridSection}>
-          <h3 className={styles.sectionTitle}>Ingredients</h3>
-          <div className={styles.grid}>
-            {ingredients.map((ingredient) => (
-              <div key={ingredient.id} className={styles.gridItem}>
-                <span className={styles.ingredientName}>{ingredient.name}</span>
-                <span className={styles.ingredientAmount}>{ingredient.amount}</span>
-              </div>
-            ))}
+    <div className="drink-card">
+      <h1>{name}</h1>
+      <p>{description}</p>
+
+      <h2>Ingredients</h2>
+      <div className="grid-container">
+        {ingredients.map((item, index) => (
+          <div key={index} className="grid-item">
+            <strong>{item.name}:</strong> {item.amount}
           </div>
-        </div>
-        <div className={styles.gridSection}>
-          <h3 className={styles.sectionTitle}>Instructions</h3>
-          <div className={styles.grid}>
-            {instructions.map((instruction) => (
-              <div key={instruction.step_number} className={styles.gridItem}>
-                <span className={styles.instructionStep}>Step {instruction.step_number}:</span>
-                <span className={styles.instructionText}>{instruction.instruction}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
+
+      <h2>Instructions</h2>
+      <div className="grid-container">
+        {instructions.map((step, index) => (
+          <div key={index} className="grid-item">
+            <strong>Step {step.step_number}:</strong> {step.instruction}
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        .drink-card {
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        h1 {
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+
+        h2 {
+          font-size: 20px;
+          margin-top: 20px;
+          margin-bottom: 10px;
+        }
+
+        .grid-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 10px;
+        }
+
+        .grid-item {
+          background-color: #f4f4f4;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+      `}</style>
     </div>
   );
 };
