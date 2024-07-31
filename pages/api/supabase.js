@@ -13,11 +13,31 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to fetch drinks' });
       }
 
-      console.log(`Fetched ${allDrinks.length} drinks`);
-      const randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
-      console.log('Random drink selected:', randomDrink);
+      console.log(`Fetched ${allDrinks.length} drinks`, allDrinks);
+      if (allDrinks.length === 0) {
+        return res.status(404).json({ error: 'No drinks found' });
+      }
 
-      return res.status(200).json(randomDrink);
+      // Select a random drink
+      const randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
+
+      // Fetch ingredients for the random drink
+      const { data: ingredientAmounts, error: ingredientError } = await supabase
+        .from('ingredient_amounts')
+        .select('amount, ingredients(text)')
+        .eq('drink_id', randomDrink.id);
+
+      if (ingredientError) {
+        console.error('Error fetching ingredients:', ingredientError);
+        return res.status(500).json({ error: 'Failed to fetch ingredients' });
+      }
+
+      // Combine drink and ingredients
+      const drinkWithIngredients = { ...randomDrink, ingredients: ingredientAmounts };
+
+      console.log('Random drink with ingredients:', drinkWithIngredients);
+
+      return res.status(200).json(drinkWithIngredients);
     } catch (error) {
       console.error('Unexpected error:', error);
       return res.status(500).json({ error: 'Unexpected error' });
@@ -35,7 +55,10 @@ export default async function handler(req, res) {
       }
 
       if (ingredient) {
-        searchQuery = searchQuery.or(`ingredients.ilike.%${ingredient}%`);
+        searchQuery = searchQuery
+          .join('ingredient_amounts', 'drinks.id', 'ingredient_amounts.drink_id')
+          .join('ingredients', 'ingredient_amounts.ingredient_id', 'ingredients.id')
+          .or(`ingredients.text.ilike.%${ingredient}%`);
       }
 
       const { data, error } = await searchQuery;
