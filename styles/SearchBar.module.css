@@ -1,27 +1,32 @@
-/* components/SearchBar.module.css */
-.searchBar {
+.searchContainer {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+  justify-content: center;
+  margin: 20px 0;
 }
 
-.input {
+.searchForm {
+  display: flex;
+  gap: 10px;
+}
+
+.searchInput {
   padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  width: 300px;
+  font-size: 16px;
+  width: 200px;
 }
 
-.button {
-  padding: 10px;
+.searchButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  background-color: #0070f3;
-  color: white;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
 }
 
-.button:hover {
-  background-color: #005bb5;
+.searchButton:hover {
+  background-color: #0056b3;
 }
