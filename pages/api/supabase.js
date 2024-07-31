@@ -3,18 +3,20 @@ import { supabase } from '../../utils/supabaseClient';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const { data, error } = await supabase
+      // Fetch all drinks first
+      const { data: allDrinks, error: fetchError } = await supabase
         .from('drinks')
-        .select('*')
-        .order('random()')
-        .limit(1);
+        .select('*');
 
-      if (error) {
-        console.error('Error fetching random drink:', error);
-        return res.status(500).json({ error: 'Failed to fetch drink' });
+      if (fetchError) {
+        console.error('Error fetching drinks:', fetchError);
+        return res.status(500).json({ error: 'Failed to fetch drinks' });
       }
 
-      return res.status(200).json(data[0]);
+      // Select a random drink from the fetched drinks
+      const randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
+
+      return res.status(200).json(randomDrink);
     } catch (error) {
       console.error('Unexpected error:', error);
       return res.status(500).json({ error: 'Unexpected error' });
