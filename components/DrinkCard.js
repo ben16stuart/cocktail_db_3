@@ -13,18 +13,18 @@ const DrinkCard = ({ drink }) => {
       <p>{description}</p>
 
       <h2>Ingredients</h2>
-      <div className="grid-container">
+      <div className="ingredients-list">
         {ingredients.map((item, index) => (
-          <div key={index} className="grid-item">
+          <div key={index} className="ingredient-item">
             <strong>{item.name}:</strong> {item.amount}
           </div>
         ))}
       </div>
 
       <h2>Instructions</h2>
-      <div className="grid-container">
+      <div className="instructions-list">
         {instructions.map((step, index) => (
-          <div key={index} className="grid-item">
+          <div key={index} className="instruction-item">
             <strong>Step {step.step_number}:</strong> {step.instruction}
           </div>
         ))}
@@ -50,13 +50,13 @@ const DrinkCard = ({ drink }) => {
           margin-bottom: 10px;
         }
 
-        .grid-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        .ingredients-list, .instructions-list {
+          display: flex;
+          flex-direction: column;
           gap: 10px;
         }
 
-        .grid-item {
+        .ingredient-item, .instruction-item {
           background-color: #f4f4f4;
           padding: 10px;
           border: 1px solid #ddd;
