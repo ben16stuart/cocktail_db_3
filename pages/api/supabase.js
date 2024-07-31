@@ -47,14 +47,24 @@ export default async function handler(req, res) {
       let searchQuery = supabase.from('drinks').select('*');
 
       if (query) {
-        searchQuery = searchQuery.or(`name.ilike.%${query}%`);
+        searchQuery = searchQuery.ilike('name', `%${query}%`);
       }
 
       if (ingredient) {
-        searchQuery = searchQuery
-          .join('ingredient_amounts', 'drinks.id', 'ingredient_amounts.drink_id')
-          .join('ingredients', 'ingredient_amounts.ingredient_id', 'ingredients.id')
-          .or(`ingredients.text.ilike.%${ingredient}%`);
+        // Query for ingredients separately and join results in the frontend
+        const { data: ingredientResults, error: ingredientError } = await supabase
+          .from('ingredient_amounts')
+          .select('drink_id')
+          .match({ 'ingredients.text': ingredient });
+
+        if (ingredientError) {
+          console.error('Error fetching ingredients:', ingredientError);
+          return res.status(500).json({ error: 'Failed to fetch ingredients' });
+        }
+
+        const drinkIds = ingredientResults.map(item => item.drink_id);
+
+        searchQuery = searchQuery.in('id', drinkIds);
       }
 
       const { data, error } = await searchQuery;
