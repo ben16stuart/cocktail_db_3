@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './SearchBar.module.css';
+import styles from '../styles/SearchBar.module.css';
 
 function SearchBar({ onSearch, onIngredientSearch }) {
   const [query, setQuery] = useState('');
@@ -7,16 +7,12 @@ function SearchBar({ onSearch, onIngredientSearch }) {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (query.trim()) {
-      onSearch(query);
-    }
+    onSearch(query);
   };
 
-  const handleIngredientSubmit = (e) => {
+  const handleIngredientSearchSubmit = (e) => {
     e.preventDefault();
-    if (ingredient.trim()) {
-      onIngredientSearch(ingredient);
-    }
+    onIngredientSearch(ingredient);
   };
 
   return (
@@ -27,19 +23,17 @@ function SearchBar({ onSearch, onIngredientSearch }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a drink"
-          className={styles.input}
         />
-        <button type="submit" className={styles.button}>Search</button>
+        <button type="submit">Search</button>
       </form>
-      <form onSubmit={handleIngredientSubmit}>
+      <form onSubmit={handleIngredientSearchSubmit}>
         <input
           type="text"
           value={ingredient}
           onChange={(e) => setIngredient(e.target.value)}
           placeholder="Search by ingredient"
-          className={styles.input}
         />
-        <button type="submit" className={styles.button}>Search by Ingredient</button>
+        <button type="submit">Search by Ingredient</button>
       </form>
     </div>
   );
