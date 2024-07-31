@@ -1,19 +1,25 @@
 import React from 'react';
+import styles from '../styles/DrinkCard.module.css';
 
-function DrinkCard({ drink }) {
+const DrinkCard = ({ drink }) => {
+  if (!drink) return null;
+
   return (
-    <div className="drinkDetails">
-      <div className="drinkTitle">{drink.name}</div>
-      <div className="drinkIngredients">
-        <strong>Ingredients:</strong>
-        <p>{drink.ingredients}</p>
-      </div>
-      <div className="drinkDirections">
-        <strong>Directions:</strong>
-        <p>{drink.directions}</p>
-      </div>
+    <div className={styles.card}>
+      <h2>{drink.name}</h2>
+      <p>{drink.description}</p>
+      <p>Category: {drink.category}</p>
+      <img src={drink.url} alt={drink.name} />
+      <h3>Ingredients:</h3>
+      <ul>
+        {drink.ingredients.map((item, index) => (
+          <li key={index}>
+            {item.amount} of {item.ingredients.text}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default DrinkCard;
