@@ -82,7 +82,7 @@ function Home() {
     <div className={styles.container}>
       <Header />
       <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
-      <h2 className={styles.header}>Random Drink</h2>
+      <h2 className={styles.header}>What Should I Make?</h2>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
