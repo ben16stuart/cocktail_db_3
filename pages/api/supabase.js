@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         .from('ingredient_amounts')
         .select(`
           amount,
-          ingredients (name)
+          ingredients(name)
         `)
         .eq('drink_id', randomDrink.id);
 
@@ -37,12 +37,14 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to fetch ingredients' });
       }
 
+      console.log('Fetched ingredient amounts:', ingredientAmounts);
+
       // Combine drink and ingredients
       const drinkWithIngredients = {
         ...randomDrink,
         ingredients: ingredientAmounts.map(({ amount, ingredients }) => ({
           amount,
-          name: ingredients.name
+          name: ingredients ? ingredients.name : 'Unknown' // Handle undefined ingredients
         }))
       };
 
