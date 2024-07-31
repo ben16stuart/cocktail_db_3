@@ -13,7 +13,6 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to fetch drinks' });
       }
 
-      console.log(`Fetched ${allDrinks.length} drinks`, allDrinks);
       if (allDrinks.length === 0) {
         return res.status(404).json({ error: 'No drinks found' });
       }
@@ -35,8 +34,6 @@ export default async function handler(req, res) {
       // Combine drink and ingredients
       const drinkWithIngredients = { ...randomDrink, ingredients: ingredientAmounts };
 
-      console.log('Random drink with ingredients:', drinkWithIngredients);
-
       return res.status(200).json(drinkWithIngredients);
     } catch (error) {
       console.error('Unexpected error:', error);
@@ -45,9 +42,6 @@ export default async function handler(req, res) {
   } else if (req.method === 'POST') {
     try {
       const { query, ingredient } = req.body;
-      console.log('Search query:', query);
-      console.log('Search ingredient:', ingredient);
-
       let searchQuery = supabase.from('drinks').select('*');
 
       if (query) {
@@ -68,7 +62,6 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to search drinks' });
       }
 
-      console.log('Search results:', data);
       return res.status(200).json(data);
     } catch (error) {
       console.error('Unexpected error:', error);
