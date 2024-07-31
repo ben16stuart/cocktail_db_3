@@ -1,42 +1,38 @@
 import React, { useState } from 'react';
-import styles from '../styles/SearchBar.module.css';
+import styles from './SearchBar.module.css';
 
-function SearchBar({ onSearch, onIngredientSearch }) {
+const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
   const [ingredient, setIngredient] = useState('');
 
-  const handleSearchSubmit = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    onSearch(query);
-  };
-
-  const handleIngredientSearchSubmit = (e) => {
-    e.preventDefault();
-    onIngredientSearch(ingredient);
+    onSearch({ query, ingredient });
   };
 
   return (
-    <div className={styles.searchBar}>
-      <form onSubmit={handleSearchSubmit}>
+    <div className={styles.searchContainer}>
+      <form onSubmit={handleSearch} className={styles.searchForm}>
         <input
           type="text"
+          placeholder="Search by drink name"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for a drink"
+          className={styles.searchInput}
         />
-        <button type="submit">Search</button>
-      </form>
-      <form onSubmit={handleIngredientSearchSubmit}>
         <input
           type="text"
+          placeholder="Search by ingredient"
           value={ingredient}
           onChange={(e) => setIngredient(e.target.value)}
-          placeholder="Search by ingredient"
+          className={styles.searchInput}
         />
-        <button type="submit">Search by Ingredient</button>
+        <button type="submit" className={styles.searchButton}>
+          Search
+        </button>
       </form>
     </div>
   );
-}
+};
 
 export default SearchBar;
