@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './DrinkCard.module.css';
+import styles from '../styles/DrinkCard.module.css';
 
 const DrinkCard = ({ drink }) => {
   const [ingredients, setIngredients] = useState([]);
