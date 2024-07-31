@@ -1,6 +1,8 @@
 import { supabase } from '../../utils/supabaseClient';
 
 export default async function handler(req, res) {
+  console.log('API Route Handler Invoked'); // Debugging log
+
   if (req.method === 'GET') {
     try {
       console.log('Fetching all drinks...');
