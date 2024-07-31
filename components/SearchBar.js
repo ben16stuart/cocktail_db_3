@@ -1,29 +1,47 @@
 import React, { useState } from 'react';
+import styles from './SearchBar.module.css';
 
-function SearchBar() {
+function SearchBar({ onSearch, onIngredientSearch }) {
   const [query, setQuery] = useState('');
+  const [ingredient, setIngredient] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    const response = await fetch('/api/supabase', {
-      method: 'POST',
-      body: JSON.stringify({ query }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const data = await response.json();
-    console.log(data);
+    if (query.trim()) {
+      onSearch(query);
+    }
+  };
+
+  const handleIngredientSubmit = (e) => {
+    e.preventDefault();
+    if (ingredient.trim()) {
+      onIngredientSearch(ingredient);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for a drink"
-      />
-      <button type="submit">Search</button>
-    </form>
+    <div className={styles.searchBar}>
+      <form onSubmit={handleSearchSubmit}>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for a drink"
+          className={styles.input}
+        />
+        <button type="submit" className={styles.button}>Search</button>
+      </form>
+      <form onSubmit={handleIngredientSubmit}>
+        <input
+          type="text"
+          value={ingredient}
+          onChange={(e) => setIngredient(e.target.value)}
+          placeholder="Search by ingredient"
+          className={styles.input}
+        />
+        <button type="submit" className={styles.button}>Search by Ingredient</button>
+      </form>
+    </div>
   );
 }
 
