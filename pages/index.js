@@ -18,6 +18,7 @@ function Home() {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
+      console.log('Random drink data:', data);
       setDrink(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -40,6 +41,7 @@ function Home() {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
+      console.log('Search result data:', data);
       setDrink(data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -62,6 +64,7 @@ function Home() {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
+      console.log('Ingredient search result data:', data);
       setDrink(data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -94,4 +97,3 @@ function Home() {
 }
 
 export default Home;
-
