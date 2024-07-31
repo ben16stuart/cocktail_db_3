@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import styles from '../styles/SearchBar.module.css';
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
@@ -7,12 +7,12 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    onSearch({ query, ingredient });
+    onSearch(query, ingredient);
   };
 
   return (
-    <div className={styles.searchContainer}>
-      <form onSubmit={handleSearch} className={styles.searchForm}>
+    <div className={styles.searchBarContainer}>
+      <form className={styles.searchForm} onSubmit={handleSearch}>
         <input
           type="text"
           placeholder="Search by drink name"
