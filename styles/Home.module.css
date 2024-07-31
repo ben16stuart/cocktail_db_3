@@ -6,3 +6,24 @@
   padding: 20px;
   font-family: Arial, sans-serif;
 }
+
+.header {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.drinkDetails {
+  text-align: left;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.drinkTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.drinkIngredients,
+.drinkDirections {
+  margin-top: 10px;
+}
