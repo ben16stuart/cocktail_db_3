@@ -1,15 +1,65 @@
-/* styles/DrinkCard.module.css */
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  margin: 16px;
-  text-align: center;
+  max-width: 600px;
+  margin: 20px auto;
   background-color: #fff;
 }
 
-.card img {
-  max-width: 100%;
-  height: auto;
+.name {
+  font-size: 1.5em;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 1em;
+  margin-bottom: 16px;
+}
+
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gridSection {
+  border: 1px solid #ddd;
   border-radius: 8px;
+  padding: 8px;
+  background-color: #f9f9f9;
+}
+
+.sectionTitle {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.gridItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.ingredientName {
+  font-weight: bold;
+}
+
+.ingredientAmount {
+  text-align: right;
+}
+
+.instructionStep {
+  font-weight: bold;
+}
+
+.instructionText {
+  margin-left: 8px;
 }
