@@ -23,57 +23,28 @@ export default async function handler(req, res) {
       const randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
       console.log('Selected random drink:', randomDrink);
 
-      // Fetch ingredient amounts for the random drink
-      const { data: ingredientAmounts, error: ingredientAmountError } = await supabase
+      // Fetch ingredients for the random drink
+      const { data: ingredientAmounts, error: ingredientError } = await supabase
         .from('ingredient_amounts')
-        .select('amount, ingredient_id')
+        .select(`
+          amount,
+          ingredients (name)
+        `)
         .eq('drink_id', randomDrink.id);
-
-      if (ingredientAmountError) {
-        console.error('Error fetching ingredient amounts:', ingredientAmountError);
-        return res.status(500).json({ error: 'Failed to fetch ingredient amounts' });
-      }
-
-      console.log('Fetched ingredient amounts:', ingredientAmounts);
-
-      // Fetch ingredients for the ingredient IDs obtained
-      const ingredientIds = ingredientAmounts.map(ia => ia.ingredient_id);
-      if (ingredientIds.length === 0) {
-        console.log('No ingredients found for the drink.');
-        return res.status(200).json({
-          ...randomDrink,
-          ingredients: []  // Return empty ingredients array if no ingredient IDs
-        });
-      }
-
-      const { data: ingredients, error: ingredientError } = await supabase
-        .from('ingredients')
-        .select('id, name')
-        .in('id', ingredientIds);
 
       if (ingredientError) {
         console.error('Error fetching ingredients:', ingredientError);
         return res.status(500).json({ error: 'Failed to fetch ingredients' });
       }
 
-      console.log('Fetched ingredients:', ingredients);
-
-      // Map ingredient IDs to names
-      const ingredientMap = ingredients.reduce((map, ingredient) => {
-        map[ingredient.id] = ingredient.name;
-        return map;
-      }, {});
-
-      // Combine ingredient amounts with names
+      // Combine drink and ingredients
       const drinkWithIngredients = {
         ...randomDrink,
-        ingredients: ingredientAmounts.map(ia => ({
-          amount: ia.amount,
-          name: ingredientMap[ia.ingredient_id] || 'Unknown ingredient'
+        ingredients: ingredientAmounts.map(({ amount, ingredients }) => ({
+          amount,
+          name: ingredients.name
         }))
       };
-
-      console.log('Combined drink with ingredients:', drinkWithIngredients);
 
       return res.status(200).json(drinkWithIngredients);
     } catch (error) {
@@ -94,7 +65,7 @@ export default async function handler(req, res) {
         const { data: ingredientResults, error: ingredientError } = await supabase
           .from('ingredient_amounts')
           .select('drink_id')
-          .match({ 'ingredient_id': ingredient });
+          .match({ 'ingredients.name': ingredient });
 
         if (ingredientError) {
           console.error('Error fetching ingredients:', ingredientError);
