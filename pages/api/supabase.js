@@ -15,12 +15,14 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to fetch drinks' });
       }
 
-      if (allDrinks.length === 0) {
+      if (!allDrinks || allDrinks.length === 0) {
+        console.log('No drinks found');
         return res.status(404).json({ error: 'No drinks found' });
       }
 
       // Select a random drink
       const randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
+      console.log('Selected random drink:', randomDrink);
 
       // Fetch ingredients for the random drink
       const { data: ingredientAmounts, error: ingredientError } = await supabase
@@ -34,7 +36,8 @@ export default async function handler(req, res) {
       }
 
       // Combine drink and ingredients
-      const drinkWithIngredients = { ...randomDrink, ingredients: ingredientAmounts };
+      const drinkWithIngredients = { ...randomDrink, ingredients: ingredientAmounts || [] };
+      console.log('Returning drink with ingredients:', drinkWithIngredients);
 
       return res.status(200).json(drinkWithIngredients);
     } catch (error) {
@@ -55,26 +58,27 @@ export default async function handler(req, res) {
         const { data: ingredientResults, error: ingredientError } = await supabase
           .from('ingredient_amounts')
           .select('drink_id')
-          .match({ 'ingredients.text': ingredient });
+          .eq('ingredients.text', ingredient);
 
         if (ingredientError) {
-          console.error('Error fetching ingredients:', ingredientError);
-          return res.status(500).json({ error: 'Failed to fetch ingredients' });
+          console.error('Error fetching ingredient matches:', ingredientError);
+          return res.status(500).json({ error: 'Failed to fetch ingredient matches' });
         }
 
-        const drinkIds = ingredientResults.map(item => item.drink_id);
+        const drinkIds = ingredientResults ? ingredientResults.map(item => item.drink_id) : [];
 
         searchQuery = searchQuery.in('id', drinkIds);
       }
 
-      const { data, error } = await searchQuery;
+      const { data, error: searchError } = await searchQuery;
 
-      if (error) {
-        console.error('Error searching drinks:', error);
+      if (searchError) {
+        console.error('Error searching drinks:', searchError);
         return res.status(500).json({ error: 'Failed to search drinks' });
       }
 
-      return res.status(200).json(data);
+      console.log('Search result data:', data);
+      return res.status(200).json(data || []);
     } catch (error) {
       console.error('Unexpected error:', error);
       return res.status(500).json({ error: 'Unexpected error' });
