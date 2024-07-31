@@ -12,7 +12,7 @@ function Home() {
     try {
       const res = await fetch('/api/supabase');
       const data = await res.json();
-      setDrink(data); // assuming data is a single drink object
+      setDrink(data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -25,7 +25,7 @@ function Home() {
     try {
       const res = await fetch(`/api/supabase?query=${query}`);
       const data = await res.json();
-      setDrink(data[0]); // assuming data is an array of drinks
+      setDrink(data[0]);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -38,7 +38,7 @@ function Home() {
     try {
       const res = await fetch(`/api/supabase?ingredient=${ingredient}`);
       const data = await res.json();
-      setDrink(data[0]); // assuming data is an array of drinks
+      setDrink(data[0]);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -54,6 +54,7 @@ function Home() {
     <div className={styles.container}>
       <Header />
       <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
+      <h2 className={styles.header}>Random Drink</h2>
       {loading ? (
         <p>Loading...</p>
       ) : drink ? (
