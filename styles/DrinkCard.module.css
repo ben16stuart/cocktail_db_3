@@ -1,50 +1,40 @@
-.card {
+/* styles/DrinkCard.module.css */
+.drinkCard {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 16px;
-  max-width: 600px;
-  margin: 20px auto;
-  background-color: #fff;
+  background: #fff;
 }
 
-.name {
-  font-size: 1.5em;
-  margin-bottom: 8px;
+.drinkName {
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
-.description {
-  font-size: 1em;
-  margin-bottom: 16px;
+.drinkDescription {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .gridContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.gridSection {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 8px;
-  background-color: #f9f9f9;
-}
-
-.sectionTitle {
-  font-size: 1.2em;
-  margin-bottom: 8px;
-}
-
-.grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 20px;
 }
 
-.gridItem {
+.ingredients, .instructions {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.ingredientCard {
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -53,13 +43,17 @@
 }
 
 .ingredientAmount {
-  text-align: right;
+  color: #666;
 }
 
 .instructionStep {
+  margin-bottom: 10px;
+}
+
+.stepNumber {
   font-weight: bold;
 }
 
-.instructionText {
-  margin-left: 8px;
+.stepInstruction {
+  margin-left: 5px;
 }
