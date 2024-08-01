@@ -1,29 +1,35 @@
 /* styles/SearchBar.module.css */
 
-.searchContainer {
+.searchBarContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
+  flex-direction: column; /* Stack search forms vertically */
+  align-items: center;    /* Center horizontally */
+  gap: 20px;              /* Space between search forms */
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column; /* Stack input and button vertically */
+  align-items: center;    /* Center input and button */
+  width: 100%;            /* Ensure the form takes full width of its container */
+  max-width: 500px;       /* Optional: Limit the maximum width of the form */
 }
 
 .searchInput {
+  width: 100%;            /* Full width of the form */
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  width: 300px; /* Adjust width as needed */
+  margin-bottom: 10px;    /* Space between input and button */
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .searchButton {
+  padding: 10px 20px;
   background-color: #1e90ff;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
 }
 
 .searchButton:hover {
