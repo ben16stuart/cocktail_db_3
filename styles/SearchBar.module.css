@@ -1,21 +1,22 @@
-.search-container {
+/* styles/SearchBar.module.css */
+
+.searchContainer {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
-.search-input {
+.searchInput {
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #444;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  margin-right: 10px;
-  background-color: #333;
-  color: #fff;
+  margin-bottom: 10px;
+  width: 300px; /* Adjust width as needed */
 }
 
-.search-button {
+.searchButton {
   background-color: #1e90ff;
   color: #ffffff;
   border: none;
@@ -25,6 +26,6 @@
   font-size: 16px;
 }
 
-.search-button:hover {
+.searchButton:hover {
   background-color: #1c86ee;
 }
