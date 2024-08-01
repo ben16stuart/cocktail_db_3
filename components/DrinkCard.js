@@ -33,10 +33,12 @@ const DrinkCard = ({ drink }) => {
       <style jsx>{`
         .drink-card {
           padding: 20px;
-          border: 1px solid #ddd;
+          border: 1px solid #333;
           border-radius: 8px;
           max-width: 600px;
           margin: 0 auto;
+          background-color: #1e1e1e;
+          color: #ffffff;
         }
 
         h1 {
@@ -50,16 +52,16 @@ const DrinkCard = ({ drink }) => {
           margin-bottom: 10px;
         }
 
-        .ingredients-list, .instructions-list {
+        .ingredient-list, .instruction-list {
           display: flex;
           flex-direction: column;
           gap: 10px;
         }
 
         .ingredient-item, .instruction-item {
-          background-color: #f4f4f4;
+          background-color: #333;
           padding: 10px;
-          border: 1px solid #ddd;
+          border: 1px solid #444;
           border-radius: 4px;
         }
       `}</style>
