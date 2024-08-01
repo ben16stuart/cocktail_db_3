@@ -20,7 +20,8 @@
 }
 
 .logo {
-  width: 150px; /* Adjust size as needed */
+  max-width: 200px; /* Set a maximum width for the logo */
+  max-height: 200px;
   height: auto;
   margin-top: 10px;
 }
