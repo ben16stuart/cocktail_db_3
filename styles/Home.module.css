@@ -1,30 +1,30 @@
 /* Home.module.css */
 
-/* Container for the home page content */
-.homeContainer {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+/* General container styles */
+.container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center;    /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  min-height: 100vh;       /* Full viewport height */
+  padding: 20px;          /* Add padding around content */
+  text-align: center;     /* Center text */
 }
 
-/* Styles for a section in the home page */
-.section {
-  margin-bottom: 40px;
+/* Header text style */
+.header {
+  margin-top: 20px; /* Margin to space out from previous elements */
 }
 
-/* Specific styles for heading and paragraph */
-.title {
-  font-size: 2rem;
-  color: #ffffff;
-  margin-bottom: 10px;
+/* Ensure styles for Header component are not affecting layout */
+header {
+  width: 100%; /* Full width to avoid layout issues */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center header content horizontally */
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  color: #dddddd;
-}
-
-.text {
-  font-size: 1rem;
-  color: #f0f0f0;
+/* Logo styling */
+.logo {
+  margin-top: 10px; /* Space between logo and header text */
 }
