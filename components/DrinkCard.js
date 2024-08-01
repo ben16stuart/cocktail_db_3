@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/DrinkCard.module.css';
 
 const DrinkCard = ({ drink }) => {
   if (!drink) {
