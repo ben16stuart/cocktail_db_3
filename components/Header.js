@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/globals.css'; // Ensure global styles are available
+import '../styles/global.css';
 
 const Header = () => {
   return (
