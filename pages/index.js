@@ -80,7 +80,7 @@ function Home() {
 
   return (
     <div className={styles.container}>
-     // <Header />
+      <Header />
       <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
       <h2 className={styles.header}>What Should I Make?</h2>
       {loading ? (
