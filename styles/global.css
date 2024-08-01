@@ -11,16 +11,24 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
+/* Link styles */
 a {
   color: #1e90ff;
+  text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
+/* Container for main content */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* Button styles */
 button {
   background-color: #1e90ff;
   color: #ffffff;
@@ -34,3 +42,39 @@ button {
 button:hover {
   background-color: #1c86ee;
 }
+
+/* Header styles */
+header {
+  background-color: #1e1e1e;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between; /* Align title and logo */
+  align-items: center;
+}
+
+h1 {
+  font-size: 24px;
+  color: #ffffff;
+}
+
+/* Logo styles */
+.logo {
+  height: 60px; /* Adjust the height as needed */
+}
+
+/* Input and form styles */
+input, select, textarea {
+  background-color: #2e2e2e;
+  color: #ffffff;
+  border: 1px solid #444444;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #1e90ff;
+}
+
+/* Additional global styles */
