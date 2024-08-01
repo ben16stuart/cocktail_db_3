@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import DrinkCard from '../components/DrinkCard';
 import styles from '../styles/Home.module.css';
