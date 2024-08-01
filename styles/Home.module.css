@@ -1,29 +1,36 @@
-/* styles/Home.module.css */
+/* Reset some basic elements */
+body, h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply a dark theme */
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+a {
+  color: #1e90ff;
+}
+
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
 }
 
-.header {
-  font-size: 24px;
-  margin: 20px 0;
+button {
+  background-color: #1e90ff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.drinkDetails {
-  text-align: left;
-  max-width: 600px;
-  margin-top: 20px;
-}
-
-.drinkTitle {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.drinkIngredients,
-.drinkDirections {
-  margin-top: 10px;
+button:hover {
+  background-color: #1c86ee;
 }
