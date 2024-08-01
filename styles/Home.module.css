@@ -16,7 +16,7 @@
   margin-top: 20px; /* Margin to space out from previous elements */
 }
 
-/* Logo styling */
+/* Logo styling - Ensure this is used in Header component */
 .logo {
   max-width: 200px; /* Set a maximum width for the logo */
   max-height: 200px; /* Set a maximum height for the logo */
@@ -24,7 +24,7 @@
   margin-top: 10px; /* Space between logo and header text */
 }
 
-/* Header container styles */
+/* Header container styles - This is for the Header component */
 .headerContainer {
   display: flex;
   flex-direction: column;
