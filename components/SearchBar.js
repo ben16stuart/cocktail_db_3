@@ -1,19 +1,23 @@
-// components/SearchBar.js
 import React, { useState } from 'react';
 import styles from '../styles/SearchBar.module.css';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearchByName, onSearchByIngredient }) => {
   const [query, setQuery] = useState('');
   const [ingredient, setIngredient] = useState('');
 
-  const handleSearch = (e) => {
+  const handleSearchByName = (e) => {
     e.preventDefault();
-    onSearch(query, ingredient);
+    onSearchByName(query);
+  };
+
+  const handleSearchByIngredient = (e) => {
+    e.preventDefault();
+    onSearchByIngredient(ingredient);
   };
 
   return (
     <div className={styles.searchBarContainer}>
-      <form className={styles.searchForm} onSubmit={handleSearch}>
+      <form className={styles.searchForm} onSubmit={handleSearchByName}>
         <input
           type="text"
           placeholder="Search by drink name"
@@ -21,6 +25,12 @@ const SearchBar = ({ onSearch }) => {
           onChange={(e) => setQuery(e.target.value)}
           className={styles.searchInput}
         />
+        <button type="submit" className={styles.searchButton}>
+          Search by Name
+        </button>
+      </form>
+
+      <form className={styles.searchForm} onSubmit={handleSearchByIngredient}>
         <input
           type="text"
           placeholder="Search by ingredient"
@@ -29,7 +39,7 @@ const SearchBar = ({ onSearch }) => {
           className={styles.searchInput}
         />
         <button type="submit" className={styles.searchButton}>
-          Search
+          Search by Ingredient
         </button>
       </form>
     </div>
