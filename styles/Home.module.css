@@ -18,10 +18,13 @@
 
 /* Logo styling */
 .logo {
+  max-width: 200px; /* Set a maximum width for the logo */
+  max-height: 200px; /* Set a maximum height for the logo */
+  height: auto; /* Maintain aspect ratio */
   margin-top: 10px; /* Space between logo and header text */
 }
 
-/* Specific Header component styles */
+/* Header container styles */
 .headerContainer {
   display: flex;
   flex-direction: column;
