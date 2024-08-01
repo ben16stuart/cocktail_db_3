@@ -1,0 +1,26 @@
+/* styles/Header.module.css */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #121212; /* Dark background */
+  color: #ffffff; /* Light text color */
+}
+
+.textContainer {
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.logo {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+  margin-top: 10px;
+}
