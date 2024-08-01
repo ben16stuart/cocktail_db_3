@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../components/Layout';
+import Layout from '../components/Layout'; // Import Layout
 import SearchBar from '../components/SearchBar';
 import DrinkCard from '../components/DrinkCard';
 import styles from '../styles/Home.module.css';
@@ -79,20 +79,21 @@ function Home() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <Header />
-      <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
-      <h2 className={styles.header}>What Should I Make?</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : drink ? (
-        <DrinkCard drink={drink} />
-      ) : (
-        <p>No drinks found.</p>
-      )}
-    </div>
+    <Layout>
+      <div className={styles.container}>
+        <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
+        <h2 className={styles.header}>What Should I Make?</h2>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : drink ? (
+          <DrinkCard drink={drink} />
+        ) : (
+          <p>No drinks found.</p>
+        )}
+      </div>
+    </Layout>
   );
 }
 
