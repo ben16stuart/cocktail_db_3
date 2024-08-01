@@ -20,7 +20,7 @@ const SearchBar = ({ onSearchByName, onSearchByIngredient }) => {
       <form className={styles.searchForm} onSubmit={handleSearchByName}>
         <input
           type="text"
-          placeholder="Search by drink name"
+          placeholder="Drink Name"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className={styles.searchInput}
@@ -33,7 +33,7 @@ const SearchBar = ({ onSearchByName, onSearchByIngredient }) => {
       <form className={styles.searchForm} onSubmit={handleSearchByIngredient}>
         <input
           type="text"
-          placeholder="Search by ingredient"
+          placeholder="Ingredient"
           value={ingredient}
           onChange={(e) => setIngredient(e.target.value)}
           className={styles.searchInput}
