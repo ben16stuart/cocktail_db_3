@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+ximport React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import DrinkCard from '../components/DrinkCard';
@@ -80,7 +80,7 @@ function Home() {
 
   return (
     <Layout>
-      <div className={styles.container}>
+      <div className={styles.indexContainer}>
         <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
         <h2 className={styles.header}>What Should I Make?</h2>
         {loading ? (
