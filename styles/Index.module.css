@@ -1,7 +1,7 @@
-/* Home.module.css */
+/* Index.module.css */
 
 /* General container styles */
-.container {
+.indexContainer {
   display: flex;
   flex-direction: column; /* Stack children vertically */
   align-items: center;    /* Center horizontally */
@@ -14,20 +14,4 @@
 /* Header text style */
 .header {
   margin-top: 20px; /* Margin to space out from previous elements */
-}
-
-/* Logo styling - Ensure this is used in Header component */
-.logo {
-  max-width: 200px; /* Set a maximum width for the logo */
-  max-height: 200px; /* Set a maximum height for the logo */
-  height: auto; /* Maintain aspect ratio */
-  margin-top: 10px; /* Space between logo and header text */
-}
-
-/* Header container styles - This is for the Header component */
-.headerContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center header content horizontally */
-  width: 100%; /* Full width to avoid layout issues */
 }
