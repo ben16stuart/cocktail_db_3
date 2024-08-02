@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
 import Layout from '../components/Layout'; // Import Layout
 import SearchBar from '../components/SearchBar';
 import DrinkCard from '../components/DrinkCard';
