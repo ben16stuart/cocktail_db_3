@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className={styles.headerContainer}>
       <h1>Cocktail Database</h1>
-      <img src="/logo.jpeg" alt="Logo" className={styles.logo} />
+      <img src="/logo.png" alt="Logo" className={styles.logo} />
     </header>
   );
 };
