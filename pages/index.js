@@ -78,7 +78,6 @@ function Home() {
   }, []);
 
   return (
-    <Layout>
       <div className={styles.indexContainer}>
         <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
         <h2 className={styles.header}>What Should I Make?</h2>
@@ -92,7 +91,6 @@ function Home() {
           <p>No drinks found.</p>
         )}
       </div>
-    </Layout>
   );
 }
 
