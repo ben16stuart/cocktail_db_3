@@ -1,4 +1,4 @@
-ximport React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import DrinkCard from '../components/DrinkCard';
