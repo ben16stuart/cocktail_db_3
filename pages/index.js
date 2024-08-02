@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../components/Layout'; // Import Layout
+import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import DrinkCard from '../components/DrinkCard';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Index.module.css';
 
 function Home() {
   const [drink, setDrink] = useState(null);
