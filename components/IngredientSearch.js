@@ -36,7 +36,7 @@ const IngredientSearch = ({ onSelectDrink }) => {
   };
 
   return (
-    <div className={styles.searchBarContainer}>
+    <div className={styles.ingredientSearchContainer}>
       <input
         type="text"
         value={searchQuery}
