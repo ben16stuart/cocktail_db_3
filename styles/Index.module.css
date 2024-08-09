@@ -1,6 +1,7 @@
 /* Index.module.css */
 
 /* General container styles */
+
 .IndexContainer {
   display: flex;
   flex-direction: column;
@@ -11,15 +12,10 @@
   text-align: center;
 }
 
+
 /* Header text style */
 .header {
   margin-top: 20px;
-}
-
-/* Adjust the layout to accommodate the new structure */
-.searchBarContainer, .ingredientSearchContainer {
-  margin: 20px 0;
-  width: 100%;
 }
 
 /* Add styles for drink links */
@@ -32,19 +28,4 @@
   margin: 5px 0;
   text-decoration: none;
   color: blue;
-}
-.searchContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-/* Adjust the width of the search bars if needed */
-.SearchBar {
-  width: 40%;
-}
-
-.ingredientSearchContainer {
-  width: 40%;
 }
