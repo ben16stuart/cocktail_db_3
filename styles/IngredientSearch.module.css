@@ -1,0 +1,41 @@
+.ingredientSearchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    transform: translateX(-50px);
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .searchResults {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .searchResult {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .searchResult:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .searchResult:active {
+    background-color: #e0e0e0;
+  }
+  .IndexContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

@@ -1,17 +1,50 @@
 /* Index.module.css */
 
 /* General container styles */
-.indexContainer {
+.IndexContainer {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  align-items: center;    /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  min-height: 100vh;       /* Full viewport height */
-  padding: 20px;          /* Add padding around content */
-  text-align: center;     /* Center text */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
 }
 
 /* Header text style */
 .header {
-  margin-top: 20px; /* Margin to space out from previous elements */
+  margin-top: 20px;
+}
+
+/* Adjust the layout to accommodate the new structure */
+.searchBarContainer, .ingredientSearchContainer {
+  margin: 20px 0;
+  width: 100%;
+}
+
+/* Add styles for drink links */
+.drinkLinks {
+  margin-top: 10px;
+}
+
+.drinkLinks a {
+  display: block;
+  margin: 5px 0;
+  text-decoration: none;
+  color: blue;
+}
+.searchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Adjust the width of the search bars if needed */
+.SearchBar {
+  width: 40%;
+}
+
+.ingredientSearchContainer {
+  width: 40%;
 }

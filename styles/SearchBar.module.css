@@ -1,37 +1,35 @@
-/* styles/SearchBar.module.css */
-
 .searchBarContainer {
   display: flex;
-  flex-direction: column; /* Stack search forms vertically */
-  align-items: center;    /* Center horizontally */
-  gap: 20px;              /* Space between search forms */
-}
-
-.searchForm {
-  display: flex;
-  flex-direction: column; /* Stack input and button vertically */
-  align-items: center;    /* Center input and button */
-  width: 100%;            /* Ensure the form takes full width of its container */
-  max-width: 500px;       /* Optional: Limit the maximum width of the form */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .searchInput {
-  width: 100%;            /* Full width of the form */
+  width: 100%;
   padding: 10px;
-  margin-bottom: 10px;    /* Space between input and button */
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.searchButton {
-  padding: 10px 20px;
-  background-color: #1e90ff;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.searchResults {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.searchButton:hover {
-  background-color: #1c86ee;
+.searchResult {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.searchResult:hover {
+  background-color: #f0f0f0;
+}
+
+.searchResult:active {
+  background-color: #e0e0e0;
 }
