@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       console.log('Fetching all drinks...');
       const { data: allDrinks, error: fetchError } = await supabase
         .from('drinks')
-        .select('*');
+        .select('*, ingredient_amounts(amount, ingredient_id), instructions(step_number, instruction)');
 
       if (fetchError) {
         console.error('Error fetching drinks:', fetchError);
@@ -95,7 +95,7 @@ export default async function handler(req, res) {
         const { data: ingredientResults, error: ingredientError } = await supabase
           .from('ingredient_amounts')
           .select('drink_id')
-          .match({ 'ingredients.name': ingredient });
+          .in('ingredient_id', [ingredient]);
 
         if (ingredientError) {
           console.error('Error fetching ingredients:', ingredientError);
