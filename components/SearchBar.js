@@ -1,47 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/SearchBar.module.css';
 
-const SearchBar = ({ onSearchByName, onSearchByIngredient }) => {
-  const [query, setQuery] = useState('');
-  const [ingredient, setIngredient] = useState('');
+const SearchBar = ({ onSelectDrink }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [drinkNames, setDrinkNames] = useState([]);
+  const [selectedDrink, setSelectedDrink] = useState(null);
 
-  const handleSearchByName = (e) => {
-    e.preventDefault();
-    onSearchByName(query);
+  useEffect(() => {
+    const fetchDrinkNames = async () => {
+      if (searchQuery.length > 0) { // changed from 2 to 0
+        try {
+          const res = await fetch(`/api/DrinkNames?query=${searchQuery}`);
+          const data = await res.json();
+          setDrinkNames(data);
+        } catch (error) {
+          console.error('Error fetching drink names:', error);
+        }
+      } else {
+        setDrinkNames([]);
+      }
+    };
+
+    fetchDrinkNames();
+  }, [searchQuery]);
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
-  const handleSearchByIngredient = (e) => {
-    e.preventDefault();
-    onSearchByIngredient(ingredient);
+  const handleDrinkSelect = (drinkName) => {
+    setSelectedDrink(drinkName);
+    onSelectDrink(drinkName);
   };
 
   return (
     <div className={styles.searchBarContainer}>
-      <form className={styles.searchForm} onSubmit={handleSearchByName}>
-        <input
-          type="text"
-          placeholder="Drink Name"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className={styles.searchInput}
-        />
-        <button type="submit" className={styles.searchButton}>
-          Search by Name
-        </button>
-      </form>
-
-      <form className={styles.searchForm} onSubmit={handleSearchByIngredient}>
-        <input
-          type="text"
-          placeholder="Ingredient"
-          value={ingredient}
-          onChange={(e) => setIngredient(e.target.value)}
-          className={styles.searchInput}
-        />
-        <button type="submit" className={styles.searchButton}>
-          Search by Ingredient
-        </button>
-      </form>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleInputChange}
+        placeholder="Search for a drink..."
+        className={styles.searchInput}
+      />
+      {drinkNames.length > 0 && (
+        <ul className={styles.searchResults}>
+          {drinkNames.map((drinkName) => (
+            <li key={drinkName} onClick={() => handleDrinkSelect(drinkName)} className={styles.searchResult}>
+              {drinkName}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
