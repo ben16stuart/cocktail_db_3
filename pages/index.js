@@ -69,7 +69,7 @@ function Home() {
 
   return (
     <div className={styles.IndexContainer}>
-      <SearchBar onSelectDrink={fetchDrinkByName} /> 
+      <SearchBar onSelectDrink={fetchDrinkByName} />
       <IngredientSearch onSelectIngredient={fetchDrinksByIngredient} />
       <h2 className={styles.header}>What Should I Make?</h2>
       {loading ? (
