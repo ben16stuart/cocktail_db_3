@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
+import IngredientSearch from '../components/IngredientSearch';
 import DrinkCard from '../components/DrinkCard';
 import styles from '../styles/Index.module.css';
 
@@ -12,62 +13,51 @@ function Home() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/supabase');
+      const res = await fetch('/api/RandomDrink');
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
-      console.log('Random drink data:', data);
       setDrink(data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching random drink:', error);
       setError('Failed to load drink');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSearch = async (query) => {
+  const fetchDrinkByName = async (name) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/supabase', {
-        method: 'POST',
-        body: JSON.stringify({ query }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const res = await fetch(`/api/DrinksByName?name=${encodeURIComponent(name)}`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
-      console.log('Search result data:', data);
-      setDrink(data[0]);
+      setDrink(data);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setError('Failed to load drink');
+      console.error('Error fetching drink by name:', error);
+      setError(`Error fetching drink: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
-
-  const handleIngredientSearch = async (ingredient) => {
+  
+  const fetchDrinksByIngredient = async (ingredient) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/supabase', {
-        method: 'POST',
-        body: JSON.stringify({ ingredient }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const res = await fetch(`/api/DrinksByIngredient?ingredient=${encodeURIComponent(ingredient)}`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
-      console.log('Ingredient search result data:', data);
-      setDrink(data[0]);
+      setDrink(data);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setError('Failed to load drink');
+      console.error('Error fetching drinks by ingredient:', error);
+      setError('Failed to load drinks');
     } finally {
       setLoading(false);
     }
@@ -78,19 +68,20 @@ function Home() {
   }, []);
 
   return (
-      <div className={styles.indexContainer}>
-        <SearchBar onSearch={handleSearch} onIngredientSearch={handleIngredientSearch} />
-        <h2 className={styles.header}>What Should I Make?</h2>
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : drink ? (
-          <DrinkCard drink={drink} />
-        ) : (
-          <p>No drinks found.</p>
-        )}
-      </div>
+    <div className={styles.IndexContainer}>
+      <SearchBar onSelectDrink={fetchDrinkByName} /> 
+      <IngredientSearch onSelectIngredient={fetchDrinksByIngredient} />
+      <h2 className={styles.header}>What Should I Make?</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : drink ? (
+        <DrinkCard drink={drink} />
+      ) : (
+        <p>No drinks found.</p>
+      )}
+    </div>
   );
 }
 
