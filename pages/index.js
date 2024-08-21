@@ -44,7 +44,7 @@ function Home() {
       setLoading(false);
     }
   };
-  
+
   const fetchDrinksByIngredient = async (ingredient) => {
     setLoading(true);
     setError(null);
@@ -56,8 +56,8 @@ function Home() {
       const data = await res.json();
       setDrink(data);
     } catch (error) {
-      console.error('Error fetching drinks by ingredient:', error);
-      setError('Failed to load drinks');
+      console.error('Error fetching drink by ingredient:', error);
+      setError(`Error fetching drink: ${error.message}`);
     } finally {
       setLoading(false);
     }
