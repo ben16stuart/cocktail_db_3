@@ -25,3 +25,10 @@
   height: auto;
   margin-top: 10px;
 }
+.clickableText {
+  cursor: pointer;
+}
+
+.logo {
+  cursor: pointer;
+}
