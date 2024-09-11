@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   try {
     const { data: allDrinks, error: fetchError } = await supabase
-      .from('drinks')
+      .from('drinks_v')
       .select('*');
 
     if (fetchError) {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
 
     const { data: ingredientAmounts, error: ingredientError } = await supabase
-      .from('ingredient_amounts')
+      .from('ingredient_amounts_v')
       .select('amount, ingredient_id')
       .eq('drink_id', randomDrink.id);
 
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
 
     const ingredientIds = ingredientAmounts.map(item => item.ingredient_id);
     const { data: ingredients, error: ingredientsError } = await supabase
-      .from('ingredients')
+      .from('ingredients_v')
       .select('id, name')
       .in('id', ingredientIds);
 
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     }));
 
     const { data: instructions, error: instructionsError } = await supabase
-      .from('instructions')
+      .from('instructions_v')
       .select('step_number, instruction')
       .eq('drink_id', randomDrink.id)
       .order('step_number', { ascending: true });

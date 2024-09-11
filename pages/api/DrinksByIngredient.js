@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
     // Fetch detailed information about the drink using its name
     const { data: detailedDrinkData, error: detailedFetchError } = await supabase
-      .from('drinks')
+      .from('drinks_v')
       .select('*')
       .eq('name', drink.drinkname);
 
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
     // Fetch ingredient amounts for the drink
     const { data: ingredientAmounts, error: ingredientError } = await supabase
-      .from('ingredient_amounts')
+      .from('ingredient_amounts_v')
       .select('amount, ingredient_id')
       .eq('drink_id', detailedDrink.id);
 
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
     const ingredientIds = ingredientAmounts.map(item => item.ingredient_id);
 
     const { data: ingredients, error: ingredientsError } = await supabase
-      .from('ingredients')
+      .from('ingredients_v')
       .select('id, name')
       .in('id', ingredientIds);
 
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
 
     // Fetch instructions for the drink
     const { data: instructions, error: instructionsError } = await supabase
-      .from('instructions')
+      .from('instructions_v')
       .select('step_number, instruction')
       .eq('drink_id', detailedDrink.id)
       .order('step_number', { ascending: true });

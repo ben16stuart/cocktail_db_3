@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   try {
     const { query } = req.query;
     const { data: drinkNames, error: fetchError } = await supabase
-      .from('drinks')
+      .from('drinks_v')
       .select('name')
       .ilike('name', `%${query}%`);
 

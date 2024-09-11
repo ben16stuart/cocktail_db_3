@@ -7,8 +7,8 @@ export default async function handler(req, res) {
     try {
       console.log('Fetching all drinks...');
       const { data: allDrinks, error: fetchError } = await supabase
-        .from('drinks')
-        .select('*, ingredient_amounts(amount, ingredient_id), instructions(step_number, instruction)');
+        .from('drinks_v')
+        .select('*, ingredient_amounts_v(amount, ingredient_id), instructions_v(step_number, instruction)');
 
       if (fetchError) {
         console.error('Error fetching drinks:', fetchError);
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
       // Fetch ingredients for the random drink
       const { data: ingredientAmounts, error: ingredientError } = await supabase
-        .from('ingredient_amounts')
+        .from('ingredient_amounts_v')
         .select('amount, ingredient_id')
         .eq('drink_id', randomDrink.id);
 
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       // Fetch ingredient names
       const ingredientIds = ingredientAmounts.map(item => item.ingredient_id);
       const { data: ingredients, error: ingredientsError } = await supabase
-        .from('ingredients')
+        .from('ingredients_v')
         .select('id, name')
         .in('id', ingredientIds);
 
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
 
       // Fetch instructions for the random drink
       const { data: instructions, error: instructionsError } = await supabase
-        .from('instructions')
+        .from('instructions_v')
         .select('step_number, instruction')
         .eq('drink_id', randomDrink.id)
         .order('step_number', { ascending: true });
@@ -93,7 +93,7 @@ export default async function handler(req, res) {
       if (ingredient) {
         // Query for ingredients separately and join results in the frontend
         const { data: ingredientResults, error: ingredientError } = await supabase
-          .from('ingredient_amounts')
+          .from('ingredient_amounts_v')
           .select('drink_id')
           .in('ingredient_id', [ingredient]);
 
