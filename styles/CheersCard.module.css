@@ -1,0 +1,34 @@
+.cheersCard {
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+  
+  .cheersCard h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .cheersCard h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .fetchCheersButton {
+    padding: 10px 20px;
+    background-color: #0070f3;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .fetchCheersButton:hover {
+    background-color: #005bb5;
+  }
