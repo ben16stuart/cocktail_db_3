@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
 import IngredientSearch from '../components/IngredientSearch';
 import DrinkCard from '../components/DrinkCard';
+import CheersCard from '../components/CheersCard';
 import styles from '../styles/Index.module.css';
 
 function Home() {
   const [drink, setDrink] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cheersText, setCheersText] = useState('');
 
   const fetchRandomDrink = async () => {
     setLoading(true);
@@ -63,6 +65,20 @@ function Home() {
     }
   };
 
+  // Fetch Cheers
+  const fetchCheersText = async () => {
+    try {
+      const res = await fetch('/api/Cheers');
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      setCheersText(data);
+    } catch (error) {
+      console.error('Error fetching cheers:', error);
+    }
+  };
+
   useEffect(() => {
     fetchRandomDrink();
   }, []);
@@ -81,7 +97,18 @@ function Home() {
       ) : (
         <p>No drinks found.</p>
       )}
-    </div>
+      <p></p>
+      {/* Add spacing between the drink card and the button */}
+      <div style={{ marginTop: '200px' }}> {/* Adjust the margin as needed */}
+        <h3 className={styles.header}>If you click this, you are morally obligated to recite it <br />
+         regardless of the situation before the next round!</h3>
+        {/* Button to fetch cheers */}
+        <button onClick={fetchCheersText} className={styles.fetchCheersButton}>Cheers!</button>
+      </div>
+    
+      {/* Display cheers text */}
+      {cheersText && <CheersCard cheersText={cheersText} />}
+  </div>
   );
 }
 
