@@ -29,3 +29,17 @@
   text-decoration: none;
   color: blue;
 }
+.fetchCheersButton {
+  margin-top: 40px;
+  padding: 10px 20px;
+  background-color: #333; /* Dark background to match drink card */
+  color: #ffffff; /* White text */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.fetchCheersButton:hover {
+  background-color: #444; /* Slightly lighter for hover effect */
+}
