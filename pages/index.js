@@ -108,6 +108,7 @@ function Home() {
     
       {/* Display cheers text */}
       {cheersText && <CheersCard cheersText={cheersText} />}
+      <div style={{ marginBottom: '100px' }}></div>
   </div>
   );
 }
