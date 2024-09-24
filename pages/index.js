@@ -105,7 +105,7 @@ function Home() {
         {/* Button to fetch cheers */}
         <button onClick={fetchCheersText} className={styles.fetchCheersButton}>Cheers!</button>
       </div>
-    
+      <div style={{ marginBottom: '20px' }}></div>
       {/* Display cheers text */}
       {cheersText && <CheersCard cheersText={cheersText} />}
       <div style={{ marginBottom: '100px' }}></div>
