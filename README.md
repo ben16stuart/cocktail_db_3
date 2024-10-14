@@ -1,3 +1,5 @@
+Welcome to my cocktail database.
+
 As a cocktail enthusiast, answering "What do you want to drink?" is one of the hardest questions. 
 I've spent tons of time years ago making great drinks that sometimes just get forgotten. This hopefully is a better way to track my creations, and an easy way to recall them.
 
