@@ -3,6 +3,7 @@ import SearchBar from '../components/SearchBar';
 import IngredientSearch from '../components/IngredientSearch';
 import DrinkCard from '../components/DrinkCard';
 import CheersCard from '../components/CheersCard';
+import HomemadeIngredients from '../components/HomemadeIngredients';
 import styles from '../styles/Index.module.css';
 
 function Home() {
@@ -47,6 +48,25 @@ function Home() {
     }
   };
 
+  const fetchHomemadeIngredientByName = async (hm_name) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/HomemadeIngredientsByName?hm_name=${encodeURIComponent(hm_name)}`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      setDrink(data);
+    } catch (error) {
+      console.error('Error fetching drink by name:', error);
+      setError(`Error fetching drink: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   const fetchDrinksByIngredient = async (ingredient) => {
     setLoading(true);
     setError(null);
@@ -87,6 +107,7 @@ function Home() {
     <div className={styles.IndexContainer}>
       <SearchBar onSelectDrink={fetchDrinkByName} />
       <IngredientSearch onSelectIngredient={fetchDrinksByIngredient} />
+      <HomemadeIngredients onSelectDrink={fetchHomemadeIngredientByName} />
       <h2 className={styles.header}>What Should I Make?</h2>
       {loading ? (
         <p>Loading...</p>
@@ -106,6 +127,7 @@ function Home() {
         <button onClick={fetchCheersText} className={styles.fetchCheersButton}>Cheers!</button>
       </div>
       <div style={{ marginBottom: '20px' }}></div>
+    
       {/* Display cheers text */}
       {cheersText && <CheersCard cheersText={cheersText} />}
       <div style={{ marginBottom: '100px' }}></div>
