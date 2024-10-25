@@ -30,7 +30,6 @@
   color: blue;
 }
 .fetchCheersButton {
-  margin-top: 40px;
   padding: 10px 20px;
   background-color: #333; /* Dark background to match drink card */
   color: #ffffff; /* White text */
@@ -42,4 +41,38 @@
 
 .fetchCheersButton:hover {
   background-color: #444; /* Slightly lighter for hover effect */
+}
+.sliderContainer {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.slider {
+  width: 90%;
+  margin: 10px 0;
+}
+
+.createDrinkButton {
+  background-color: #333; /* Adjust this to match the theme */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Same width as search fields */
+}
+
+.createDrinkButton:hover {
+  background-color: #444; /* Hover effect */
+}
+
+.createAdrinkCard {
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
