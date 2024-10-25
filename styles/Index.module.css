@@ -49,10 +49,36 @@
 }
 
 .slider {
-  width: 90%; /* Ensure it spans the full width of its container */
-  max-width: 600px; /* Set a max width to prevent it from getting too wide */
-  margin: 10px auto; /* Center the slider */
-  box-sizing: border-box; /* Prevent padding from affecting the width */
+  -webkit-appearance: none; /* Remove default appearance on Safari and iOS */
+  appearance: none; /* Remove default appearance on other browsers */
+  width: 90%;
+  max-width: 600px;
+  margin: 10px auto;
+  box-sizing: border-box;
+  background: #333; /* Background color for the slider */
+  height: 8px; /* Height of the slider track */
+  border-radius: 5px; /* Rounded corners for the track */
+}
+
+/* Style for the slider thumb (the draggable circle) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default thumb style on iOS */
+  appearance: none; /* Remove default thumb style on other browsers */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff; /* Thumb color */
+  border: 2px solid #333; /* Thumb border color */
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #333;
+  cursor: pointer;
 }
 
 .createDrinkButton {
