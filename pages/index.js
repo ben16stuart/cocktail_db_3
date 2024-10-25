@@ -11,6 +11,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cheersText, setCheersText] = useState('');
+  const [sliderValue, setSliderValue] = useState(50); // Default slider value
 
   const fetchRandomDrink = async () => {
     setLoading(true);
@@ -66,7 +67,6 @@ function Home() {
     }
   };
 
-
   const fetchDrinksByIngredient = async (ingredient) => {
     setLoading(true);
     setError(null);
@@ -99,6 +99,27 @@ function Home() {
     }
   };
 
+  // Create A Drink function
+const createDrink = async () => {
+  try {
+    setLoading(true);
+    setError(null);
+    const res = await fetch(`/api/CreateADrink?value=${sliderValue}`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    const data = await res.json();
+    
+    // Pass the structured data to the DrinkCard component
+    setDrink(data);
+  } catch (error) {
+    console.error('Error creating drink:', error);
+    setError(`Error creating drink: ${error.message}`);
+  } finally {
+    setLoading(false);
+  }
+};
+
   useEffect(() => {
     fetchRandomDrink();
   }, []);
@@ -108,6 +129,24 @@ function Home() {
       <SearchBar onSelectDrink={fetchDrinkByName} />
       <IngredientSearch onSelectIngredient={fetchDrinksByIngredient} />
       <HomemadeIngredients onSelectDrink={fetchHomemadeIngredientByName} />
+      
+      {/* Slider and Create A Drink Button */}
+      <div className={styles.createAdrinkCard}>
+        <h3>How cool / trendy / dangerous are you feeling?</h3>
+        <input
+          type="range"
+          min="10"
+          max="100"
+          value={sliderValue}
+          onChange={(e) => setSliderValue(e.target.value)}
+          className={styles.slider}
+        />
+        <p>Danger Level: {sliderValue}% </p>
+        <button onClick={createDrink} className={styles.createDrinkButton}>
+          Create-A-Drink
+        </button>
+      </div>
+
       <h2 className={styles.header}>What Should I Make?</h2>
       {loading ? (
         <p>Loading...</p>
@@ -118,20 +157,24 @@ function Home() {
       ) : (
         <p>No drinks found.</p>
       )}
-      <p></p>
-      {/* Add spacing between the drink card and the button */}
-      <div style={{ marginTop: '200px' }}> {/* Adjust the margin as needed */}
-        <h3 className={styles.header}>If you click this, you are morally obligated to recite it <br />
-         regardless of the situation before the next round!</h3>
+
+      <div style={{ marginTop: '200px' }}>
+        <h3 className={styles.header}>
+          If you click this, you are morally obligated to recite it
+          <br />
+          regardless of the situation before the next round!
+        </h3>
         {/* Button to fetch cheers */}
-        <button onClick={fetchCheersText} className={styles.fetchCheersButton}>Cheers!</button>
+        <button onClick={fetchCheersText} className={styles.fetchCheersButton}>
+          Cheers!
+        </button>
       </div>
       <div style={{ marginBottom: '20px' }}></div>
-    
+
       {/* Display cheers text */}
       {cheersText && <CheersCard cheersText={cheersText} />}
       <div style={{ marginBottom: '100px' }}></div>
-  </div>
+    </div>
   );
 }
 
