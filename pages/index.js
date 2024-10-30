@@ -129,9 +129,31 @@ const createDrink = async () => {
       <SearchBar onSelectDrink={fetchDrinkByName} />
       <IngredientSearch onSelectIngredient={fetchDrinksByIngredient} />
       <HomemadeIngredients onSelectDrink={fetchHomemadeIngredientByName} />
-      
-      {/* Slider and Create A Drink Button */}
-      <div className={styles.createAdrinkCard}>
+
+      <h2 className={styles.header}>What Should I Make?</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : drink ? (
+        <DrinkCard drink={drink} />
+      ) : (
+        <p>No drinks found.</p>
+      )}
+       <h2 className={styles.header}>What Should I Make?</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : drink ? (
+        <DrinkCard drink={drink} />
+      ) : (
+        <p>No drinks found.</p>
+      )}
+
+  {/* Slider and Create A Drink Button */}
+  <div style={{ marginTop: '50px' }}
+    className={styles.createAdrinkCard}>
         <h3>How cool / trendy / dangerous are you feeling?</h3>
         <input
           type="range"
@@ -146,17 +168,6 @@ const createDrink = async () => {
           Create-A-Drink
         </button>
       </div>
-
-      <h2 className={styles.header}>What Should I Make?</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : drink ? (
-        <DrinkCard drink={drink} />
-      ) : (
-        <p>No drinks found.</p>
-      )}
 
       <div style={{ marginTop: '200px' }}>
         <h3 className={styles.header}>
