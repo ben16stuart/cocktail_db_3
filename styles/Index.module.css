@@ -67,7 +67,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: url('logo.png') no-repeat center;
+  background: url('/logo.png') no-repeat center;
   background-size: contain;
   border: 2px solid #333; /* Thumb border color */
   cursor: pointer;
@@ -77,7 +77,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: url('logo.png') no-repeat center;
+  background: url('/logo.png') no-repeat center;
   background-size: contain;
   border: 2px solid #333;
   cursor: pointer;
