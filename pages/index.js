@@ -140,20 +140,10 @@ const createDrink = async () => {
       ) : (
         <p>No drinks found.</p>
       )}
-       <h2 className={styles.header}>What Should I Make?</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : drink ? (
-        <DrinkCard drink={drink} />
-      ) : (
-        <p>No drinks found.</p>
-      )}
 
   {/* Slider and Create A Drink Button */}
-  <div style={{ marginTop: '50px' }}
-    className={styles.createAdrinkCard}>
+    <div style={{ marginTop: '50px' }}
+      className={styles.createAdrinkCard}>
         <h3>How cool / trendy / dangerous are you feeling?</h3>
         <input
           type="range"
