@@ -69,10 +69,13 @@ export default async function handler(req, res) {
       return acc;
     }, {});
 
-    const ingredientsWithNames = ingredientAmounts.map(item => ({
-      name: ingredientMap[item.ingredient_id],
-      amount: item.amount
-    }));
+    const ingredientsWithNames = ingredientIds.map(ingredientId => {
+    const amount = ingredientAmounts.find(item => item.ingredient_id === ingredientId).amount;
+      return {
+        name: ingredientMap[ingredientId],
+        amount: amount
+      };
+    });
 
     // Fetch instructions for the drink
     const { data: instructions, error: instructionsError } = await supabase
