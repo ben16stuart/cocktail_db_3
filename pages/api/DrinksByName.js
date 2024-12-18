@@ -37,7 +37,8 @@ export default async function handler(req, res) {
     const { data: ingredients, error: ingredientsError } = await supabase
       .from('ingredients_v')
       .select('id, name')
-      .in('id', ingredientIds);
+      .in('id', ingredientIds)
+      .order('i_t_id', { ascending: true });
 
     if (ingredientsError) {
       throw ingredientsError;
