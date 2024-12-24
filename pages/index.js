@@ -165,7 +165,7 @@ function Home() {
 
       <div style={{ marginTop: '50px' }} className={styles.createAdrinkCard}>
         <div>
-        <h2>RiffMaker /n</h2>
+        <h2>RiffMaker</h2>
           <label>
             <input
               type="checkbox"
