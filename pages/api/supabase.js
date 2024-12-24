@@ -38,8 +38,7 @@ export default async function handler(req, res) {
       const { data: ingredients, error: ingredientsError } = await supabase
         .from('ingredients_v')
         .select('id, name')
-        .in('id', ingredientIds)
-        .order('i_t_id', { ascending: true });
+        .in('id', ingredientIds);
 
       if (ingredientsError) {
         console.error('Error fetching ingredient names:', ingredientsError);
@@ -53,13 +52,10 @@ export default async function handler(req, res) {
       }, {});
 
       // Prepare ingredients list with names
-      const ingredientsWithNames = ingredientIds.map(ingredientId => {
-    const amount = ingredientAmounts.find(item => item.ingredient_id === ingredientId).amount;
-      return {
-        name: ingredientMap[ingredientId],
-        amount: amount
-      };
-    });
+      const ingredientsWithNames = ingredientAmounts.map(item => ({
+        name: ingredientMap[item.ingredient_id],
+        amount: item.amount
+      }));
 
       // Fetch instructions for the random drink
       const { data: instructions, error: instructionsError } = await supabase
