@@ -174,6 +174,7 @@ function Home() {
             Lock Current Drink
           </label>
         </div>
+        <h2>RiffMaker</h2>
         <h3>How cool / trendy / dangerous are you feeling?</h3>
         <input
           type="range"
