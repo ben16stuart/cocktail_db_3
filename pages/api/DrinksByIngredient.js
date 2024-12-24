@@ -54,28 +54,38 @@ export default async function handler(req, res) {
 
     const ingredientIds = ingredientAmounts.map(item => item.ingredient_id);
 
-    const { data: ingredients, error: ingredientsError } = await supabase
-      .from('ingredients_v')
-      .select('id, name')
-      .in('id', ingredientIds)
-      .order('i_t_id', { ascending: true });
+    // First fetch ingredients with their i_t_id values
+const { data: ingredients, error: ingredientsError } = await supabase
+.from('ingredients_v')
+.select('id, name, i_t_id')
+.in('id', ingredientIds)
+.order('i_t_id', { ascending: true });
 
-    if (ingredientsError) {
-      throw ingredientsError;
-    }
+console.log('Ingredients with i_t_id:', ingredients); // Let's see what we're getting
 
-    const ingredientMap = ingredients.reduce((acc, item) => {
-      acc[item.id] = item.name;
-      return acc;
-    }, {});
+// Store both name and i_t_id in the map
+const ingredientMap = ingredients.reduce((acc, item) => {
+acc[item.id] = { name: item.name, i_t_id: item.i_t_id };
+return acc;
+}, {});
 
-    const ingredientsWithNames = ingredientIds.map(ingredientId => {
-    const amount = ingredientAmounts.find(item => item.ingredient_id === ingredientId).amount;
-      return {
-        name: ingredientMap[ingredientId],
-        amount: amount
-      };
-    });
+// Use the ingredients array directly to maintain the sorted order
+const ingredientsWithNames = ingredients.map(ing => {
+const amountObj = ingredientAmounts.find(item => item.ingredient_id === ing.id);
+return {
+  name: ing.name,
+  amount: amountObj ? amountObj.amount : '',
+  i_t_id: ing.i_t_id // Include this temporarily to verify sorting
+};
+}).sort((a, b) => (a.i_t_id || 0) - (b.i_t_id || 0));
+
+console.log('Sorted ingredients:', ingredientsWithNames);
+
+// Remove i_t_id before sending to frontend
+const finalIngredientsWithNames = ingredientsWithNames.map(({ name, amount }) => ({
+name,
+amount
+}));
 
     // Fetch instructions for the drink
     const { data: instructions, error: instructionsError } = await supabase
