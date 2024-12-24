@@ -11,7 +11,9 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cheersText, setCheersText] = useState('');
-  const [sliderValue, setSliderValue] = useState(50); // Default slider value
+  const [sliderValue, setSliderValue] = useState(50);
+  const [lockDrink, setLockDrink] = useState(false);
+  const [lockedDrinkName, setLockedDrinkName] = useState(null); // Changed to store drink name
 
   const fetchRandomDrink = async () => {
     setLoading(true);
@@ -60,8 +62,8 @@ function Home() {
       const data = await res.json();
       setDrink(data);
     } catch (error) {
-      console.error('Error fetching drink by name:', error);
-      setError(`Error fetching drink: ${error.message}`);
+      console.error('Error fetching homemade ingredient by name:', error);
+      setError(`Error fetching homemade ingredient: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -85,7 +87,6 @@ function Home() {
     }
   };
 
-  // Fetch Cheers
   const fetchCheersText = async () => {
     try {
       const res = await fetch('/api/Cheers');
@@ -99,26 +100,47 @@ function Home() {
     }
   };
 
-  // Create A Drink function
-const createDrink = async () => {
-  try {
-    setLoading(true);
-    setError(null);
-    const res = await fetch(`/api/CreateADrink?value=${sliderValue}`);
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+  const createDrink = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Use the locked drink name if available, otherwise use the current drink name
+      const baseDrinkParam = lockDrink ? 
+        (lockedDrinkName || drink?.name) : 
+        null;
+
+      const url = baseDrinkParam
+        ? `/api/CreateADrink?value=${sliderValue}&baseDrink=${encodeURIComponent(baseDrinkParam)}`
+        : `/api/CreateADrink?value=${sliderValue}`;
+
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      setDrink(data);
+    } catch (error) {
+      console.error('Error creating drink:', error);
+      setError(`Error creating drink: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
-    const data = await res.json();
+  };
+
+  // Handle lock drink toggle
+  const handleLockToggle = () => {
+    const newLockState = !lockDrink;
+    setLockDrink(newLockState);
     
-    // Pass the structured data to the DrinkCard component
-    setDrink(data);
-  } catch (error) {
-    console.error('Error creating drink:', error);
-    setError(`Error creating drink: ${error.message}`);
-  } finally {
-    setLoading(false);
-  }
-};
+    if (newLockState && drink) {
+      // Store the current drink's name when locking
+      setLockedDrinkName(drink.name);
+    } else {
+      // Clear the locked drink name when unlocking
+      setLockedDrinkName(null);
+    }
+  };
 
   useEffect(() => {
     fetchRandomDrink();
@@ -141,9 +163,17 @@ const createDrink = async () => {
         <p>No drinks found.</p>
       )}
 
-  {/* Slider and Create A Drink Button */}
-    <div style={{ marginTop: '50px' }}
-      className={styles.createAdrinkCard}>
+      <div style={{ marginTop: '50px' }} className={styles.createAdrinkCard}>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={lockDrink}
+              onChange={handleLockToggle}
+            />
+            Lock Current Drink
+          </label>
+        </div>
         <h3>How cool / trendy / dangerous are you feeling?</h3>
         <input
           type="range"
@@ -165,16 +195,11 @@ const createDrink = async () => {
           <br />
           regardless of the situation before the next round!
         </h3>
-        {/* Button to fetch cheers */}
         <button onClick={fetchCheersText} className={styles.fetchCheersButton}>
           Cheers!
         </button>
       </div>
-      <div style={{ marginBottom: '20px' }}></div>
-
-      {/* Display cheers text */}
       {cheersText && <CheersCard cheersText={cheersText} />}
-      <div style={{ marginBottom: '100px' }}></div>
     </div>
   );
 }
