@@ -50,7 +50,7 @@ export default async function handler(req, res) {
         name: 'Made Up Drink. Good Luck',
         description: baseDrink 
           ? `This was once an amazing ${data[0].name} with ${ingredientsList}. \nNow it's:` 
-          : `This was once an amazing ${data[0].name} with ${ingredientsList}. \nNow it's:`
+          : `This was once an amazing ${data[0].name} with ${ingredientsList}. \nNow it's:`,
         ingredients: data.map(item => ({
           name: item.ingredients,
           amount: item.amount,
