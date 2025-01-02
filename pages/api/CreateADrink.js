@@ -1,4 +1,4 @@
-import { supabase } from '../../utils/supabaseClient';
+ import { supabase } from '../../utils/supabaseClient';
 
 export default async function handler(req, res) {
   const { value, baseDrink } = req.query; // Match the frontend parameter name
@@ -59,8 +59,8 @@ export default async function handler(req, res) {
           { 
             step_number: 1, 
             instruction: baseDrink 
-              ? "Follow the original drink's steps but with these ingredients instead ¯\\_(ツ)_/¯"
-              : "IDK you figure it out ¯\\_(ツ)_/¯" 
+              ? "IDK you figure it out ¯\\_(ツ)_/¯ Maybe follow the original drink's steps?"
+              : "IDK you figure it out ¯\\_(ツ)_/¯ Maybe follow the original drink's steps?" 
           },
           { 
             step_number: 2, 
