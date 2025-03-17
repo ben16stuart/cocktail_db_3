@@ -10,14 +10,6 @@ const Header = () => {
     <header className={styles.headerContainer}>
       <h1 onClick={reloadPage} className={styles.clickableText}>Cocktail Database</h1>
       <img src="/logo.png" alt="Logo" className={styles.logo} onClick={reloadPage} />
-      
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-      <link rel="manifest" href="/site.webmanifest">
-
-  
     </header>
   );
 };
