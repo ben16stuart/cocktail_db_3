@@ -1,8 +1,7 @@
-module.exports = {
-  target: 'serverless',
+export default {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['https://qflhgztoxamhdhlxjpjc.supabase.co'],
+    domains: ['qflhgztoxamhdhlxjpjc.supabase.co'],
   },
 };
