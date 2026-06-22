@@ -2,26 +2,33 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    - cron: '0 9 * * 1,4'  # Every Monday and Thursday at 9:00 AM UTC
-  workflow_dispatch:        # Allows manual trigger from GitHub Actions UI
+    - cron: '0 10 * * *'  # Daily at 10:00 AM UTC
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping Supabase drinks table
+      - name: Write timestamp to keep_alive table
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/drinks?limit=1" \
+          NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+          STATUS=$(curl -s -o /tmp/body.txt -w "%{http_code}" \
+            -X PATCH \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?id=eq.1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: return=minimal" \
+            -d "{\"last_ping\": \"$NOW\"}")
 
           echo "Response status: $STATUS"
+          echo "Response body: $(cat /tmp/body.txt)"
 
           if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
-            echo "✅ Supabase ping successful"
+            echo "✅ Supabase write successful — last_ping set to $NOW"
           else
-            echo "❌ Supabase ping failed with status $STATUS"
+            echo "❌ Supabase write failed with status $STATUS"
             exit 1
           fi
