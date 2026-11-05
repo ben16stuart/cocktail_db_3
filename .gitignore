@@ -1,0 +1,15 @@
+# dependencies and build output
+node_modules/
+.next/
+out/
+
+# local env files and secrets
+.env*.local
+.env
+
+# Vercel and Supabase CLI local state
+.vercel/
+supabase/.temp/
+
+# OS clutter
+.DS_Store

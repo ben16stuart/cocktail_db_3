@@ -29,6 +29,14 @@
   cursor: pointer;
 }
 
+/* "Cocktail Database" wordmark, set in Bebas Neue (font loaded in Header.js) */
+.wordmark {
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 0.95;
+}
+
 .logo {
   cursor: pointer;
 }
